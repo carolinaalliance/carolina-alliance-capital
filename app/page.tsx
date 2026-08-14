@@ -36,107 +36,69 @@ const principles = [
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#f6f3ec] text-[#17231d]">
-      {/* Header */}
-      <header className="absolute left-0 top-0 z-50 w-full border-b border-white/15">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-10">
-          <Link href="/" className="group">
-            <div className="text-xl font-semibold tracking-[0.16em] text-white">
-              CAROLINA ALLIANCE
-            </div>
-            <div className="mt-1 text-[10px] tracking-[0.42em] text-[#d4bd84]">
-              CAPITAL
-            </div>
+    <main>
+      <header className="site-header">
+        <div className="header-inner">
+          <Link href="/" aria-label="Carolina Alliance Capital home">
+            <div className="brand-title">CAROLINA ALLIANCE</div>
+            <div className="brand-subtitle">CAPITAL</div>
           </Link>
 
-          <nav className="hidden items-center gap-8 text-sm text-white/85 lg:flex">
-            <Link href="#capital" className="transition hover:text-white">
-              Private Capital
-            </Link>
-            <Link href="#real-estate" className="transition hover:text-white">
-              Real Estate
-            </Link>
-            <Link href="#business" className="transition hover:text-white">
-              Business
-            </Link>
-            <Link href="#about" className="transition hover:text-white">
-              About
-            </Link>
+          <nav className="site-nav" aria-label="Main navigation">
+            <Link href="#capital">Private Capital</Link>
+            <Link href="#real-estate">Real Estate</Link>
+            <Link href="#business">Business</Link>
+            <Link href="#about">About</Link>
           </nav>
 
-          <Link
-            href="/contact"
-            className="rounded-sm border border-[#d4bd84] px-5 py-3 text-xs font-semibold uppercase tracking-[0.16em] text-white transition hover:bg-[#d4bd84] hover:text-[#17231d]"
-          >
+          <Link href="#consultation" className="header-button">
             Private Consultation
           </Link>
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="relative flex min-h-[92vh] items-center overflow-hidden bg-[#14251e]">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute -right-32 top-24 h-[520px] w-[520px] rounded-full border border-[#d4bd84]/30" />
-          <div className="absolute -right-10 top-10 h-[520px] w-[520px] rounded-full border border-[#d4bd84]/15" />
-          <div className="absolute bottom-[-250px] left-[-160px] h-[600px] w-[600px] rounded-full border border-white/10" />
-        </div>
+      <section className="hero">
+        <div className="hero-inner">
+          <p className="eyebrow">
+            Private Capital • Real Estate • Business
+          </p>
 
-        <div className="relative mx-auto w-full max-w-7xl px-6 pt-32 lg:px-10">
-          <div className="max-w-4xl">
-            <p className="mb-7 text-xs font-semibold uppercase tracking-[0.35em] text-[#d4bd84]">
-              Private Capital • Real Estate • Business
-            </p>
+          <h1 className="hero-title">
+            Capital with
+            <span>purpose.</span>
+          </h1>
 
-            <h1 className="max-w-4xl text-5xl font-light leading-[1.05] tracking-tight text-white md:text-7xl lg:text-[88px]">
-              Capital with
-              <span className="block font-serif italic text-[#d4bd84]">
-                purpose.
-              </span>
-            </h1>
+          <p className="hero-copy">
+            Private capital solutions grounded in relationships, disciplined
+            decision-making, and a long-term view of wealth.
+          </p>
 
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-white/70 md:text-xl">
-              Private capital solutions grounded in relationships,
-              disciplined decision-making, and a long-term view of wealth.
-            </p>
+          <div className="button-row">
+            <Link href="#consultation" className="button-primary">
+              Start a Conversation
+            </Link>
 
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Link
-                href="/contact"
-                className="bg-[#d4bd84] px-7 py-4 text-center text-xs font-semibold uppercase tracking-[0.17em] text-[#17231d] transition hover:bg-[#e1cd9f]"
-              >
-                Start a Conversation
-              </Link>
-
-              <Link
-                href="#capital"
-                className="border border-white/25 px-7 py-4 text-center text-xs font-semibold uppercase tracking-[0.17em] text-white transition hover:border-white/60"
-              >
-                Explore Our Approach
-              </Link>
-            </div>
+            <Link href="#about" className="button-secondary">
+              Explore Our Approach
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Intro */}
-      <section className="border-b border-[#17231d]/10 py-24">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-10">
+      <section className="section intro-section" id="about">
+        <div className="section-inner intro-grid">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-[#887344]">
-              A Different Approach
-            </p>
+            <p className="section-label">A Different Approach</p>
           </div>
 
           <div>
-            <h2 className="max-w-3xl text-3xl font-light leading-tight md:text-5xl">
+            <h2 className="section-heading">
               Money is important.
-              <span className="font-serif italic text-[#887344]">
-                {" "}
-                Relationships are more important.
-              </span>
+              <br />
+              <em>Relationships are more important.</em>
             </h2>
 
-            <p className="mt-7 max-w-2xl text-base leading-8 text-[#526058]">
+            <p className="section-copy">
               Carolina Alliance Capital is being built around a simple
               principle: capital should serve a purpose. We pursue
               opportunities through careful analysis, transparent
@@ -147,176 +109,137 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services */}
-      <section id="capital" className="py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="mb-16 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+      <section className="section" id="capital">
+        <div className="section-inner">
+          <div className="services-header">
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-[0.32em] text-[#887344]">
-                Our Capabilities
-              </p>
+              <p className="section-label">Our Capabilities</p>
 
-              <h2 className="text-4xl font-light md:text-6xl">
+              <h2 className="section-heading">
                 Private capital.
-                <span className="block font-serif italic text-[#887344]">
-                  Personally considered.
-                </span>
+                <br />
+                <em>Personally considered.</em>
               </h2>
             </div>
 
-            <p className="max-w-sm leading-7 text-[#667169]">
-              Solutions designed around the individual transaction rather
-              than forcing every opportunity into the same box.
+            <p className="services-header-copy">
+              Solutions designed around the individual transaction rather than
+              forcing every opportunity into the same box.
             </p>
           </div>
 
-          <div className="grid border-l border-t border-[#17231d]/15 md:grid-cols-2">
+          <div className="services-grid">
             {services.map((service) => (
-              <article
-                key={service.number}
-                className="group min-h-[310px] border-b border-r border-[#17231d]/15 p-8 transition duration-300 hover:bg-[#17231d] md:p-10"
-              >
-                <div className="text-xs tracking-[0.2em] text-[#9a8657]">
-                  {service.number}
-                </div>
+              <article className="service-card" key={service.number}>
+                <div className="service-number">{service.number}</div>
 
-                <h3 className="mt-20 text-2xl font-normal transition group-hover:text-white md:text-3xl">
-                  {service.title}
-                </h3>
+                <h3 className="service-title">{service.title}</h3>
 
-                <p className="mt-4 max-w-md leading-7 text-[#667169] transition group-hover:text-white/65">
-                  {service.description}
-                </p>
+                <p className="service-copy">{service.description}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Philosophy */}
-      <section className="bg-[#17231d] py-24 text-white lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="grid gap-16 lg:grid-cols-2">
-            <div>
-              <p className="mb-5 text-xs font-semibold uppercase tracking-[0.32em] text-[#d4bd84]">
-                Our Philosophy
-              </p>
+      <section className="section philosophy-section" id="business">
+        <div className="section-inner philosophy-grid">
+          <div>
+            <p className="eyebrow">Our Philosophy</p>
 
-              <h2 className="max-w-lg text-4xl font-light leading-tight md:text-6xl">
-                Built for the
-                <span className="block font-serif italic text-[#d4bd84]">
-                  long term.
-                </span>
-              </h2>
-            </div>
+            <h2 className="section-heading">
+              Built for the
+              <br />
+              <em>long term.</em>
+            </h2>
+          </div>
 
-            <div>
-              <p className="max-w-xl text-lg leading-8 text-white/70">
-                We believe good financial decisions begin with understanding
-                the people, property, businesses, and objectives behind the
-                numbers.
-              </p>
+          <div>
+            <p className="philosophy-copy">
+              We believe good financial decisions begin with understanding the
+              people, property, businesses, and objectives behind the numbers.
+            </p>
 
-              <div className="mt-12">
-                {principles.map((principle, index) => (
-                  <div
-                    key={principle}
-                    className="flex items-center justify-between border-t border-white/15 py-5"
-                  >
-                    <span className="text-lg">{principle}</span>
-                    <span className="text-xs text-[#d4bd84]">
-                      0{index + 1}
-                    </span>
-                  </div>
-                ))}
-              </div>
+            <div className="principles">
+              {principles.map((principle, index) => (
+                <div className="principle-row" key={principle}>
+                  <span>{principle}</span>
+                  <span>0{index + 1}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Real Estate */}
-      <section id="real-estate" className="py-24 lg:py-32">
-        <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-2 lg:px-10">
-          <div className="flex min-h-[500px] items-end bg-[#d9d3c4] p-10">
-            <div className="max-w-sm border-l border-[#887344] pl-6">
-              <p className="text-sm leading-7 text-[#536058]">
-                Capital decisions deserve more than an algorithm. We look
-                beyond the transaction to understand the complete opportunity.
-              </p>
-            </div>
+      <section className="section" id="real-estate">
+        <div className="section-inner feature-grid">
+          <div className="feature-visual">
+            <p className="feature-quote">
+              Capital decisions deserve more than an algorithm. We look beyond
+              the transaction to understand the complete opportunity.
+            </p>
           </div>
 
-          <div className="flex flex-col justify-center lg:pl-12">
-            <p className="mb-5 text-xs font-semibold uppercase tracking-[0.32em] text-[#887344]">
-              Real Estate Capital
-            </p>
+          <div>
+            <p className="section-label">Real Estate Capital</p>
 
-            <h2 className="text-4xl font-light leading-tight md:text-6xl">
+            <h2 className="section-heading">
               Real estate is more
-              <span className="block font-serif italic text-[#887344]">
-                than collateral.
-              </span>
+              <br />
+              <em>than collateral.</em>
             </h2>
 
-            <p className="mt-7 max-w-xl leading-8 text-[#667169]">
+            <p className="section-copy">
               Every property has a story, every investment has an objective,
               and every transaction has its own risk profile. Our approach
               begins by understanding all three.
             </p>
 
-            <Link
-              href="/real-estate-capital"
-              className="mt-9 w-fit border-b border-[#17231d] pb-2 text-xs font-semibold uppercase tracking-[0.18em]"
-            >
+            <Link href="#consultation" className="text-link">
               Explore Real Estate Capital →
             </Link>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="bg-[#e3ddcf] py-24">
-        <div className="mx-auto max-w-4xl px-6 text-center">
-          <p className="mb-5 text-xs font-semibold uppercase tracking-[0.32em] text-[#887344]">
-            Begin a Conversation
-          </p>
+      <section className="section cta-section" id="consultation">
+        <div className="section-inner">
+          <div className="cta-inner">
+            <p className="section-label">Begin a Conversation</p>
 
-          <h2 className="text-4xl font-light leading-tight md:text-6xl">
-            Some opportunities deserve
-            <span className="block font-serif italic text-[#887344]">
-              a closer look.
-            </span>
-          </h2>
+            <h2 className="section-heading">
+              Some opportunities deserve
+              <br />
+              <em>a closer look.</em>
+            </h2>
 
-          <p className="mx-auto mt-7 max-w-xl leading-8 text-[#667169]">
-            Tell us about the opportunity, property, business, or objective
-            you're considering.
-          </p>
+            <p className="section-copy">
+              Tell us about the opportunity, property, business, or objective
+              you're considering.
+            </p>
 
-          <Link
-            href="/contact"
-            className="mt-9 inline-block bg-[#17231d] px-8 py-4 text-xs font-semibold uppercase tracking-[0.18em] text-white"
-          >
-            Request a Private Consultation
-          </Link>
+            <div className="button-row" style={{ justifyContent: "center" }}>
+              <a
+                href="mailto:info@carolinaalliancecapital.com"
+                className="button-dark"
+              >
+                Request a Private Consultation
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-[#0e1814] py-14 text-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="flex flex-col justify-between gap-10 md:flex-row">
-            <div>
-              <div className="text-lg tracking-[0.15em]">
-                CAROLINA ALLIANCE
-              </div>
-              <div className="mt-1 text-[10px] tracking-[0.42em] text-[#d4bd84]">
-                CAPITAL
-              </div>
+      <footer className="site-footer">
+        <div className="footer-inner">
+          <div className="footer-top">
+            <div className="footer-brand">
+              CAROLINA ALLIANCE
+              <span>CAPITAL</span>
             </div>
 
-            <div className="max-w-xl text-xs leading-6 text-white/45">
+            <div className="footer-disclaimer">
               Carolina Alliance Capital is not represented on this website as
               a bank or federally insured depository institution. Products,
               services, licensing, eligibility requirements, and disclosures
@@ -326,7 +249,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-12 border-t border-white/10 pt-7 text-xs text-white/35">
+          <div className="footer-bottom">
             © {new Date().getFullYear()} Carolina Alliance Capital. All rights
             reserved.
           </div>
