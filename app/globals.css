@@ -1244,3 +1244,19 @@ main {
     grid-template-columns: 1fr;
   }
 }
+.capital-request-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.capital-request-link:hover {
+  background: #fbfaf6;
+}
+
+.capital-request-link:hover h3 {
+  color: var(--gold-dark);
+}
