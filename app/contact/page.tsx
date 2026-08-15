@@ -2,14 +2,49 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { supabase } from "../../lib/supabase";
 
 export default function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
+  async function handleSubmit(
+  event: React.FormEvent<HTMLFormElement>
+) {
+  event.preventDefault();
+
+  const form = event.currentTarget;
+  const formData = new FormData(form);
+
+  const { error } = await supabase
+    .from("capital_requests")
+    .insert({
+      full_name: String(formData.get("name") || ""),
+      company: String(formData.get("company") || "") || null,
+      email: String(formData.get("email") || ""),
+      phone: String(formData.get("phone") || ""),
+      capital_type: String(formData.get("capitalType") || ""),
+      estimated_amount:
+        String(formData.get("amount") || "") || null,
+      location:
+        String(formData.get("location") || "") || null,
+      description:
+        String(formData.get("description") || ""),
+      preferred_contact_method:
+        String(formData.get("contactMethod") || "either"),
+    });
+
+  if (error) {
+    console.error("Capital request submission error:", error);
+
+    alert(
+      "We could not submit your request. Please try again."
+    );
+
+    return;
   }
+
+  setSubmitted(true);
+}
 
   if (submitted) {
     return (
