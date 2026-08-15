@@ -34,14 +34,14 @@ export default function ContactPage() {
     });
 
   if (error) {
-    console.error("Capital request submission error:", error);
+  console.error("Capital request submission error:", error);
 
-    alert(
-      "We could not submit your request. Please try again."
-    );
+  alert(
+    `Supabase error: ${error.message}`
+  );
 
-    return;
-  }
+  return;
+}
 
   setSubmitted(true);
 }
