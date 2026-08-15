@@ -142,6 +142,43 @@ const [approvalConditions, setApprovalConditions] = useState("");
 setPriority(data.priority || "normal");
 setFollowUpDate(data.follow_up_date || "");
 setInternalNotes(data.internal_notes || "");
+     setCollateralValue(
+  data.collateral_value !== null
+    ? String(data.collateral_value)
+    : ""
+);
+
+setBorrowerEquity(
+  data.borrower_equity !== null
+    ? String(data.borrower_equity)
+    : ""
+);
+
+setProposedLoanAmount(
+  data.proposed_loan_amount !== null
+    ? String(data.proposed_loan_amount)
+    : ""
+);
+
+setInterestRate(
+  data.interest_rate !== null
+    ? String(data.interest_rate)
+    : ""
+);
+
+setTermMonths(
+  data.term_months !== null
+    ? String(data.term_months)
+    : ""
+);
+
+setPaymentType(data.payment_type || "");
+setExitStrategy(data.exit_strategy || "");
+setUnderwritingNotes(data.underwriting_notes || "");
+setUnderwritingDecision(
+  data.underwriting_decision || "pending"
+);
+setApprovalConditions(data.approval_conditions || ""); 
       setLoading(false);
     }
 
@@ -164,6 +201,36 @@ setInternalNotes(data.internal_notes || "");
       follow_up_date: followUpDate || null,
       internal_notes: internalNotes || null,
       updated_at: new Date().toISOString(),
+      collateral_value:
+  collateralValue !== ""
+    ? Number(collateralValue)
+    : null,
+
+borrower_equity:
+  borrowerEquity !== ""
+    ? Number(borrowerEquity)
+    : null,
+
+proposed_loan_amount:
+  proposedLoanAmount !== ""
+    ? Number(proposedLoanAmount)
+    : null,
+
+interest_rate:
+  interestRate !== ""
+    ? Number(interestRate)
+    : null,
+
+term_months:
+  termMonths !== ""
+    ? Number(termMonths)
+    : null,
+
+payment_type: paymentType || null,
+exit_strategy: exitStrategy || null,
+underwriting_notes: underwritingNotes || null,
+underwriting_decision: underwritingDecision || "pending",
+approval_conditions: approvalConditions || null,
     })
     .eq("id", request.id);
 
@@ -396,6 +463,151 @@ setInternalNotes(data.internal_notes || "");
           </p>
         </section>
 
+        <section className="request-detail-card request-detail-wide">
+  <p className="section-label">
+    Underwriting Workspace
+  </p>
+
+  <div className="underwriting-grid">
+    <div className="form-field">
+      <label>Collateral Value</label>
+      <input
+        type="number"
+        value={collateralValue}
+        onChange={(event) =>
+          setCollateralValue(event.target.value)
+        }
+        placeholder="0"
+      />
+    </div>
+
+    <div className="form-field">
+      <label>Borrower Equity</label>
+      <input
+        type="number"
+        value={borrowerEquity}
+        onChange={(event) =>
+          setBorrowerEquity(event.target.value)
+        }
+        placeholder="0"
+      />
+    </div>
+
+    <div className="form-field">
+      <label>Proposed Loan Amount</label>
+      <input
+        type="number"
+        value={proposedLoanAmount}
+        onChange={(event) =>
+          setProposedLoanAmount(event.target.value)
+        }
+        placeholder="0"
+      />
+    </div>
+
+    <div className="form-field">
+      <label>Interest Rate</label>
+      <input
+        type="number"
+        step="0.01"
+        value={interestRate}
+        onChange={(event) =>
+          setInterestRate(event.target.value)
+        }
+        placeholder="0.00"
+      />
+    </div>
+
+    <div className="form-field">
+      <label>Term Months</label>
+      <input
+        type="number"
+        value={termMonths}
+        onChange={(event) =>
+          setTermMonths(event.target.value)
+        }
+        placeholder="12"
+      />
+    </div>
+
+    <div className="form-field">
+      <label>Payment Type</label>
+      <select
+        value={paymentType}
+        onChange={(event) =>
+          setPaymentType(event.target.value)
+        }
+      >
+        <option value="">Select one</option>
+        <option value="interest_only">
+          Interest Only
+        </option>
+        <option value="amortizing">
+          Amortizing
+        </option>
+        <option value="balloon">
+          Balloon
+        </option>
+        <option value="custom">
+          Custom
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div className="form-field">
+    <label>Exit Strategy</label>
+    <textarea
+      rows={4}
+      value={exitStrategy}
+      onChange={(event) =>
+        setExitStrategy(event.target.value)
+      }
+      placeholder="Sale, refinance, business cash flow, disposition..."
+    />
+  </div>
+
+  <div className="form-field">
+    <label>Underwriting Decision</label>
+    <select
+      value={underwritingDecision}
+      onChange={(event) =>
+        setUnderwritingDecision(event.target.value)
+      }
+    >
+      <option value="pending">Pending</option>
+      <option value="approved">Approved</option>
+      <option value="conditional">
+        Conditionally Approved
+      </option>
+      <option value="declined">Declined</option>
+    </select>
+  </div>
+
+  <div className="form-field">
+    <label>Approval Conditions</label>
+    <textarea
+      rows={5}
+      value={approvalConditions}
+      onChange={(event) =>
+        setApprovalConditions(event.target.value)
+      }
+      placeholder="List any conditions required before approval or funding..."
+    />
+  </div>
+
+  <div className="form-field">
+    <label>Underwriting Notes</label>
+    <textarea
+      rows={7}
+      value={underwritingNotes}
+      onChange={(event) =>
+        setUnderwritingNotes(event.target.value)
+      }
+      placeholder="Document analysis, risks, strengths, questions, and recommendations..."
+    />
+  </div>
+</section>
         <section className="request-detail-card request-detail-wide">
   <p className="section-label">
     Internal Notes
