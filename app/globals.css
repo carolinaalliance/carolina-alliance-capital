@@ -1123,3 +1123,124 @@ main {
     flex-direction: column;
   }
 }
+.capital-request-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.capital-request-card {
+  padding: 30px;
+  border-bottom: 1px solid var(--border);
+}
+
+.capital-request-card:last-child {
+  border-bottom: 0;
+}
+
+.capital-request-main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.capital-request-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.capital-request-status {
+  color: var(--gold-dark);
+  font-weight: 700;
+}
+
+.capital-request-card h3 {
+  margin: 10px 0 4px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 400;
+}
+
+.capital-request-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.capital-request-amount {
+  min-width: 180px;
+  text-align: right;
+}
+
+.capital-request-amount span,
+.capital-request-details span,
+.capital-request-description span {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.capital-request-amount strong {
+  display: block;
+  margin-top: 6px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 24px;
+  font-weight: 400;
+}
+
+.capital-request-details {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.capital-request-details > div {
+  padding: 16px;
+  background: #faf8f2;
+  border: 1px solid var(--border);
+}
+
+.capital-request-details strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.capital-request-description {
+  margin-top: 20px;
+}
+
+.capital-request-description p {
+  margin-top: 8px;
+  max-width: 900px;
+}
+
+@media (max-width: 850px) {
+  .capital-request-main {
+    flex-direction: column;
+  }
+
+  .capital-request-amount {
+    text-align: left;
+  }
+
+  .capital-request-details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .capital-request-details {
+    grid-template-columns: 1fr;
+  }
+}
