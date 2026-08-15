@@ -111,9 +111,19 @@ const [approvalConditions, setApprovalConditions] = useState("");
             preferred_contact_method,
             status,
             priority,
-            internal_notes,
-            follow_up_date,
-            created_at
+      internal_notes,
+      follow_up_date,
+      collateral_value,
+      borrower_equity,
+      proposed_loan_amount,
+      interest_rate,
+      term_months,
+      payment_type,
+      exit_strategy,
+      underwriting_notes,
+      underwriting_decision,
+      approval_conditions,
+      created_at
           `
         )
         .eq("id", requestId)
