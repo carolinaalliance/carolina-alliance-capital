@@ -246,10 +246,11 @@ export default function AdminPage() {
           ) : (
             <div className="capital-request-list">
               {requests.map((request) => (
-                <article
-                  className="capital-request-card"
-                  key={request.id}
-                >
+                <Link
+  href={`/admin/requests/${request.id}`}
+  className="capital-request-card capital-request-link"
+  key={request.id}
+>
                   <div className="capital-request-main">
                     <div>
                       <div className="capital-request-meta">
@@ -312,7 +313,7 @@ export default function AdminPage() {
                     <span>Opportunity</span>
                     <p>{request.description}</p>
                   </div>
-                </article>
+                </Link>
               ))}
             </div>
           )}
