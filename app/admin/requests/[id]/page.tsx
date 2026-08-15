@@ -26,6 +26,16 @@ type CapitalRequest = {
   internal_notes: string | null;
   follow_up_date: string | null;
   created_at: string;
+  collateral_value: number | null;
+borrower_equity: number | null;
+proposed_loan_amount: number | null;
+interest_rate: number | null;
+term_months: number | null;
+payment_type: string | null;
+exit_strategy: string | null;
+underwriting_notes: string | null;
+underwriting_decision: string | null;
+approval_conditions: string | null;
 };
 
 export default function CapitalRequestDetailPage() {
@@ -44,6 +54,17 @@ const [followUpDate, setFollowUpDate] = useState("");
 const [internalNotes, setInternalNotes] = useState("");
 const [saving, setSaving] = useState(false);
 const [saveMessage, setSaveMessage] = useState("");
+  const [collateralValue, setCollateralValue] = useState("");
+const [borrowerEquity, setBorrowerEquity] = useState("");
+const [proposedLoanAmount, setProposedLoanAmount] = useState("");
+const [interestRate, setInterestRate] = useState("");
+const [termMonths, setTermMonths] = useState("");
+const [paymentType, setPaymentType] = useState("");
+const [exitStrategy, setExitStrategy] = useState("");
+const [underwritingNotes, setUnderwritingNotes] = useState("");
+const [underwritingDecision, setUnderwritingDecision] =
+  useState("pending");
+const [approvalConditions, setApprovalConditions] = useState("");
 
   useEffect(() => {
     async function loadRequest() {
