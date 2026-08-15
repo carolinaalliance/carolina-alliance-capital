@@ -13,33 +13,57 @@ export default function AdminLoginPage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function handleLogin(
-    event: React.FormEvent<HTMLFormElement>
-  ) {
-    event.preventDefault();
+ async function handleLogin(
+  event: React.FormEvent<HTMLFormElement>
+) {
+  event.preventDefault();
 
-    setLoading(true);
-    setErrorMessage("");
+  setLoading(true);
+  setErrorMessage("");
 
-    const { error } =
-      await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+  const {
+    data: signInData,
+    error: signInError,
+  } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
 
-    if (error) {
-      setErrorMessage(
-        "We could not sign you in. Please check your email and password."
-      );
+  if (signInError || !signInData.user) {
+    setErrorMessage(
+      "We could not sign you in. Please check your email and password."
+    );
 
-      setLoading(false);
-      return;
-    }
-
-    router.push("/admin");
-    router.refresh();
+    setLoading(false);
+    return;
   }
 
+  const { data: adminRecord, error: adminError } =
+    await supabase
+      .from("capital_admins")
+      .select("role, is_active")
+      .eq("user_id", signInData.user.id)
+      .maybeSingle();
+
+  if (
+    adminError ||
+    !adminRecord ||
+    adminRecord.role !== "admin" ||
+    adminRecord.is_active !== true
+  ) {
+    await supabase.auth.signOut();
+
+    setErrorMessage(
+      "This account is not authorized to access the Carolina Alliance Capital Command Center."
+    );
+
+    setLoading(false);
+    return;
+  }
+
+  router.push("/admin");
+  router.refresh();
+}
   return (
     <main className="admin-login-page">
       <section className="admin-login-shell">
