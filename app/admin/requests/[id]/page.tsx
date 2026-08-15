@@ -38,6 +38,12 @@ export default function CapitalRequestDetailPage() {
   const [request, setRequest] =
     useState<CapitalRequest | null>(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [status, setStatus] = useState("");
+const [priority, setPriority] = useState("");
+const [followUpDate, setFollowUpDate] = useState("");
+const [internalNotes, setInternalNotes] = useState("");
+const [saving, setSaving] = useState(false);
+const [saveMessage, setSaveMessage] = useState("");
 
   useEffect(() => {
     async function loadRequest() {
@@ -101,6 +107,10 @@ export default function CapitalRequestDetailPage() {
       }
 
       setRequest(data);
+      setStatus(data.status || "new");
+setPriority(data.priority || "normal");
+setFollowUpDate(data.follow_up_date || "");
+setInternalNotes(data.internal_notes || "");
       setLoading(false);
     }
 
@@ -109,6 +119,42 @@ export default function CapitalRequestDetailPage() {
     }
   }, [requestId, router]);
 
+  async function handleSave() {
+  if (!request) return;
+
+  setSaving(true);
+  setSaveMessage("");
+
+  const { error } = await supabase
+    .from("capital_requests")
+    .update({
+      status,
+      priority,
+      follow_up_date: followUpDate || null,
+      internal_notes: internalNotes || null,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", request.id);
+
+  if (error) {
+    setSaveMessage(
+      "We could not save these changes. Please try again."
+    );
+    setSaving(false);
+    return;
+  }
+
+  setRequest({
+    ...request,
+    status,
+    priority,
+    follow_up_date: followUpDate || null,
+    internal_notes: internalNotes || null,
+  });
+
+  setSaveMessage("Changes saved successfully.");
+  setSaving(false);
+}
   function formatDate(value: string) {
     return new Date(value).toLocaleDateString("en-US", {
       month: "long",
@@ -183,11 +229,27 @@ export default function CapitalRequestDetailPage() {
           </div>
 
           <div className="request-detail-status-box">
-            <span>Status</span>
-            <strong>
-              {request.status.replaceAll("_", " ")}
-            </strong>
-          </div>
+  <span>Status</span>
+
+  <select
+    value={status}
+    onChange={(event) =>
+      setStatus(event.target.value)
+    }
+    className="request-detail-select"
+  >
+    <option value="new">New</option>
+    <option value="reviewing">Under Review</option>
+    <option value="contacted">Contacted</option>
+    <option value="due_diligence">
+      Due Diligence
+    </option>
+    <option value="qualified">Qualified</option>
+    <option value="approved">Approved</option>
+    <option value="declined">Declined</option>
+    <option value="closed">Closed</option>
+  </select>
+</div>
         </div>
 
         <div className="request-detail-grid">
@@ -235,9 +297,21 @@ export default function CapitalRequestDetailPage() {
               </div>
 
               <div>
-                <span>Priority</span>
-                <strong>{request.priority}</strong>
-              </div>
+  <span>Priority</span>
+
+  <select
+    value={priority}
+    onChange={(event) =>
+      setPriority(event.target.value)
+    }
+    className="request-detail-inline-select"
+  >
+    <option value="low">Low</option>
+    <option value="normal">Normal</option>
+    <option value="high">High</option>
+    <option value="urgent">Urgent</option>
+  </select>
+</div>
             </div>
           </section>
 
@@ -266,12 +340,17 @@ export default function CapitalRequestDetailPage() {
               </div>
 
               <div>
-                <span>Follow-Up Date</span>
-                <strong>
-                  {request.follow_up_date ||
-                    "Not scheduled"}
-                </strong>
-              </div>
+  <span>Follow-Up Date</span>
+
+  <input
+    type="date"
+    value={followUpDate}
+    onChange={(event) =>
+      setFollowUpDate(event.target.value)
+    }
+    className="request-detail-input"
+  />
+</div>
             </div>
           </section>
         </div>
@@ -287,15 +366,37 @@ export default function CapitalRequestDetailPage() {
         </section>
 
         <section className="request-detail-card request-detail-wide">
-          <p className="section-label">
-            Internal Notes
-          </p>
+  <p className="section-label">
+    Internal Notes
+  </p>
 
-          <p className="request-detail-description">
-            {request.internal_notes ||
-              "No internal notes have been added yet."}
-          </p>
-        </section>
+  <textarea
+    value={internalNotes}
+    onChange={(event) =>
+      setInternalNotes(event.target.value)
+    }
+    className="request-detail-notes"
+    rows={8}
+    placeholder="Add internal underwriting notes, follow-up details, concerns, or next steps..."
+  />
+
+  <div className="request-detail-save-row">
+    {saveMessage && (
+      <span className="request-detail-save-message">
+        {saveMessage}
+      </span>
+    )}
+
+    <button
+      type="button"
+      onClick={handleSave}
+      className="button-dark"
+      disabled={saving}
+    >
+      {saving ? "Saving..." : "Save Changes"}
+    </button>
+  </div>
+</section>
       </section>
     </main>
   );
