@@ -51,7 +51,7 @@ export default function Home() {
             <Link href="#about">About</Link>
           </nav>
 
-          <Link href="#consultation" className="header-button">
+          <Link href="/contact" className="header-button">
             Private Consultation
           </Link>
         </div>
@@ -74,7 +74,7 @@ export default function Home() {
           </p>
 
           <div className="button-row">
-            <Link href="#consultation" className="button-primary">
+            <Link href="/contact" className="button-primary">
               Start a Conversation
             </Link>
 
@@ -220,12 +220,9 @@ export default function Home() {
             </p>
 
             <div className="button-row" style={{ justifyContent: "center" }}>
-              <a
-                href="mailto:info@carolinaalliancecapital.com"
-                className="button-dark"
-              >
-                Request a Private Consultation
-              </a>
+             <Link href="/contact" className="button-dark">
+  Request a Private Consultation
+</Link>
             </div>
           </div>
         </div>
