@@ -66,6 +66,33 @@ const [underwritingDecision, setUnderwritingDecision] =
   useState("pending");
 const [approvalConditions, setApprovalConditions] = useState("");
 
+  const collateralNumber = Number(collateralValue) || 0;
+const equityNumber = Number(borrowerEquity) || 0;
+const proposedLoanNumber = Number(proposedLoanAmount) || 0;
+
+const ltv =
+  collateralNumber > 0
+    ? (proposedLoanNumber / collateralNumber) * 100
+    : 0;
+
+const equityPercent =
+  collateralNumber > 0
+    ? (equityNumber / collateralNumber) * 100
+    : 0;
+
+let riskLevel = "Not Rated";
+
+if (collateralNumber > 0 && proposedLoanNumber > 0) {
+  if (ltv <= 60) {
+    riskLevel = "Lower";
+  } else if (ltv <= 70) {
+    riskLevel = "Moderate";
+  } else if (ltv <= 80) {
+    riskLevel = "Elevated";
+  } else {
+    riskLevel = "High";
+  }
+}
   useEffect(() => {
     async function loadRequest() {
       const {
@@ -555,6 +582,94 @@ approval_conditions: approvalConditions || null,
     </div>
   </div>
 
+  <div className="underwriting-calculations">
+  <div className="underwriting-calculation-card">
+    <span>Loan-to-Value</span>
+
+    <strong>
+      {collateralNumber > 0
+        ? `${ltv.toFixed(1)}%`
+        : "—"}
+    </strong>
+  </div>
+
+  <div className="underwriting-calculation-card">
+    <span>Borrower Equity</span>
+
+    <strong>
+      {collateralNumber > 0
+        ? `${equityPercent.toFixed(1)}%`
+        : "—"}
+    </strong>
+  </div>
+
+  <div className="underwriting-calculation-card">
+    <span>Risk Indicator</span>
+
+    <strong>{riskLevel}</strong>
+  </div>
+
+  <div className="underwriting-calculation-card">
+    <span>Equity Cushion</span>
+
+    <strong>
+      {collateralNumber > 0
+        ? `${Math.max(
+            collateralNumber - proposedLoanNumber,
+            0
+          ).toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0,
+          })}`
+        : "—"}
+    </strong>
+  </div>
+</div>
+
+<div className="underwriting-summary">
+  <p className="section-label">
+    Proposed Structure Summary
+  </p>
+
+  <p>
+    {proposedLoanNumber > 0
+      ? `Proposed financing of ${proposedLoanNumber.toLocaleString(
+          "en-US",
+          {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0,
+          }
+        )}`
+      : "No proposed loan amount entered"}
+    {collateralNumber > 0
+      ? ` against collateral valued at ${collateralNumber.toLocaleString(
+          "en-US",
+          {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0,
+          }
+        )}, resulting in an LTV of ${ltv.toFixed(1)}%.`
+      : "."}
+  </p>
+
+  {interestRate && (
+    <p>
+      Proposed rate: {interestRate}%.
+      {termMonths
+        ? ` Term: ${termMonths} months.`
+        : ""}
+      {paymentType
+        ? ` Payment structure: ${paymentType.replaceAll(
+            "_",
+            " "
+          )}.`
+        : ""}
+    </p>
+  )}
+</div>        
   <div className="form-field">
     <label>Exit Strategy</label>
     <textarea
