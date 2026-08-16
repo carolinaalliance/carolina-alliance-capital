@@ -93,6 +93,47 @@ if (collateralNumber > 0 && proposedLoanNumber > 0) {
     riskLevel = "High";
   }
 }
+  const annualRate = Number(interestRate) || 0;
+const termNumber = Number(termMonths) || 0;
+
+const monthlyRate =
+  annualRate > 0 ? annualRate / 100 / 12 : 0;
+
+let monthlyPayment = 0;
+let totalPayments = 0;
+let totalInterest = 0;
+
+if (
+  proposedLoanNumber > 0 &&
+  annualRate > 0 &&
+  termNumber > 0
+) {
+  if (paymentType === "interest_only") {
+    monthlyPayment =
+      proposedLoanNumber * monthlyRate;
+
+    totalPayments =
+      monthlyPayment * termNumber;
+
+    totalInterest = totalPayments;
+  } else if (paymentType === "amortizing") {
+    monthlyPayment =
+      proposedLoanNumber *
+      (
+        monthlyRate *
+        Math.pow(1 + monthlyRate, termNumber)
+      ) /
+      (
+        Math.pow(1 + monthlyRate, termNumber) - 1
+      );
+
+    totalPayments =
+      monthlyPayment * termNumber;
+
+    totalInterest =
+      totalPayments - proposedLoanNumber;
+  }
+}
   useEffect(() => {
     async function loadRequest() {
       const {
