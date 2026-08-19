@@ -898,6 +898,34 @@ approval_conditions: approvalConditions || null,
     </select>
   </div>
 
+ <div className="underwriting-decision-actions">
+  <button
+    type="button"
+    onClick={() =>
+      setUnderwritingDecision("approved")
+    }
+  >
+    Approve
+  </button>
+
+  <button
+    type="button"
+    onClick={() =>
+      setUnderwritingDecision("conditional")
+    }
+  >
+    Conditional Approval
+  </button>
+
+  <button
+    type="button"
+    onClick={() =>
+      setUnderwritingDecision("declined")
+    }
+  >
+    Decline
+  </button>
+</div>         
   <div className="form-field">
     <label>Approval Conditions</label>
     <textarea
