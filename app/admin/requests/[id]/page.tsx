@@ -668,6 +668,65 @@ approval_conditions: approvalConditions || null,
   </div>
 </div>
 
+ <div className="debt-service-calculations">
+  <div className="underwriting-calculation-card">
+    <span>Monthly Payment</span>
+
+    <strong>
+      {monthlyPayment > 0
+        ? monthlyPayment.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0,
+          })
+        : "—"}
+    </strong>
+  </div>
+
+  <div className="underwriting-calculation-card">
+    <span>Total Payments</span>
+
+    <strong>
+      {totalPayments > 0
+        ? totalPayments.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0,
+          })
+        : "—"}
+    </strong>
+  </div>
+
+  <div className="underwriting-calculation-card">
+    <span>Total Interest</span>
+
+    <strong>
+      {totalInterest > 0
+        ? totalInterest.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0,
+          })
+        : "—"}
+    </strong>
+  </div>
+
+  <div className="underwriting-calculation-card">
+    <span>Interest-Only Payment</span>
+
+    <strong>
+      {proposedLoanNumber > 0 && monthlyRate > 0
+        ? (
+            proposedLoanNumber * monthlyRate
+          ).toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0,
+          })
+        : "—"}
+    </strong>
+  </div>
+</div>         
 <div className="underwriting-summary">
   <p className="section-label">
     Proposed Structure Summary
