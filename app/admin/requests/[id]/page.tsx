@@ -96,7 +96,8 @@ if (collateralNumber > 0 && proposedLoanNumber > 0) {
   }
 }
   const annualRate = Number(interestRate) || 0;
-const termNumber = Number(termMonths) || 0;
+const termNumber =
+  parseInt(String(termMonths).trim(), 10) || 0;
 const monthlyRate = annualRate / 100 / 12;
 
 const interestOnlyPayment =
@@ -240,8 +241,9 @@ setInterestRate(
 );
 
 setTermMonths(
-  data.term_months !== null
-    ? String(data.term_months)
+  data.term_months !== null &&
+  data.term_months !== undefined
+    ? String(Number(data.term_months))
     : ""
 );
 
