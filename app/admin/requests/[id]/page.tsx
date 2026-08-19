@@ -96,8 +96,9 @@ if (collateralNumber > 0 && proposedLoanNumber > 0) {
   }
 }
   const annualRate = Number(interestRate) || 0;
-const termNumber =
-  parseInt(String(termMonths).trim(), 10) || 0;
+const termNumber = Number(
+  termMonths || request?.term_months || 0
+);
 const monthlyRate = annualRate / 100 / 12;
 
 const interestOnlyPayment =
@@ -711,7 +712,9 @@ approval_conditions: approvalConditions || null,
   Loan: {proposedLoanNumber} |
   Rate: {annualRate} |
   Monthly Rate: {monthlyRate} |
-  Term: {termNumber} |
+  Raw Term State: [{termMonths}] |
+DB Term: [{request?.term_months}] |
+Term Used: {termNumber} |
   Payment Type: [{paymentType}] |
   Monthly Payment: {monthlyPayment}
 </div>        
