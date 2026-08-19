@@ -36,6 +36,7 @@ exit_strategy: string | null;
 underwriting_notes: string | null;
 underwriting_decision: string | null;
 approval_conditions: string | null;
+monthly_noi: number | null;  
 };
 
 export default function CapitalRequestDetailPage() {
@@ -65,6 +66,7 @@ const [underwritingNotes, setUnderwritingNotes] = useState("");
 const [underwritingDecision, setUnderwritingDecision] =
   useState("pending");
 const [approvalConditions, setApprovalConditions] = useState("");
+const [monthlyNoi, setMonthlyNoi] = useState("");  
 
   const collateralNumber = Number(collateralValue) || 0;
 const equityNumber = Number(borrowerEquity) || 0;
@@ -191,6 +193,7 @@ if (
       underwriting_notes,
       underwriting_decision,
       approval_conditions,
+      monthly_noi,
       created_at
           `
         )
@@ -239,6 +242,12 @@ setTermMonths(
     ? String(data.term_months)
     : ""
 );
+
+ setMonthlyNoi(
+  data.monthly_noi !== null
+    ? String(data.monthly_noi)
+    : ""
+);     
 
 setPaymentType(data.payment_type || "");
 setExitStrategy(data.exit_strategy || "");
