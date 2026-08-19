@@ -1510,4 +1510,23 @@ main {
   .underwriting-calculations {
     grid-template-columns: 1fr;
   }
+
+  .debt-service-calculations {
+  margin: -8px 0 28px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 900px) {
+  .debt-service-calculations {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .debt-service-calculations {
+    grid-template-columns: 1fr;
+  }
+}
 }
