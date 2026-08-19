@@ -97,9 +97,12 @@ if (collateralNumber > 0 && proposedLoanNumber > 0) {
 }
   const annualRate = Number(interestRate) || 0;
 const termNumber = Number(termMonths) || 0;
+const monthlyRate = annualRate / 100 / 12;
 
-const monthlyRate =
-  annualRate > 0 ? annualRate / 100 / 12 : 0;
+const interestOnlyPayment =
+  proposedLoanNumber > 0 && monthlyRate > 0
+    ? proposedLoanNumber * monthlyRate
+    : 0;
 
 let monthlyPayment = 0;
 let totalPayments = 0;
@@ -107,27 +110,26 @@ let totalInterest = 0;
 
 if (
   proposedLoanNumber > 0 &&
-  annualRate > 0 &&
   termNumber > 0
 ) {
   if (paymentType === "interest_only") {
-    monthlyPayment =
-      proposedLoanNumber * monthlyRate;
-
-    totalPayments =
-      monthlyPayment * termNumber;
-
+    monthlyPayment = interestOnlyPayment;
+    totalPayments = monthlyPayment * termNumber;
     totalInterest = totalPayments;
- } else {
-    monthlyPayment =
-      proposedLoanNumber *
-      (
-        monthlyRate *
-        Math.pow(1 + monthlyRate, termNumber)
-      ) /
-      (
-        Math.pow(1 + monthlyRate, termNumber) - 1
-      );
+  } else {
+    if (monthlyRate > 0) {
+      const paymentFactor =
+        Math.pow(1 + monthlyRate, termNumber);
+
+      monthlyPayment =
+        (proposedLoanNumber *
+          monthlyRate *
+          paymentFactor) /
+        (paymentFactor - 1);
+    } else {
+      monthlyPayment =
+        proposedLoanNumber / termNumber;
+    }
 
     totalPayments =
       monthlyPayment * termNumber;
@@ -742,15 +744,14 @@ approval_conditions: approvalConditions || null,
     <span>Interest-Only Payment</span>
 
     <strong>
-      {proposedLoanNumber > 0 && monthlyRate > 0
-        ? (
-            proposedLoanNumber * monthlyRate
-          ).toLocaleString("en-US", {
-            style: "currency",
-            currency: "USD",
-            maximumFractionDigits: 0,
-          })
-        : "—"}
+      {interestOnlyPayment > 0
+  ? interestOnlyPayment.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0,
+    })
+  : "—"}
+           
     </strong>
   </div>
 </div>         
