@@ -697,6 +697,22 @@ approval_conditions: approvalConditions || null,
   </div>
 </div>
 
+  <div
+  style={{
+    marginBottom: "12px",
+    padding: "10px",
+    background: "#fff4cc",
+    fontSize: "12px",
+  }}
+>
+  DEBUG —
+  Loan: {proposedLoanNumber} |
+  Rate: {annualRate} |
+  Monthly Rate: {monthlyRate} |
+  Term: {termNumber} |
+  Payment Type: [{paymentType}] |
+  Monthly Payment: {monthlyPayment}
+</div>        
  <div className="debt-service-calculations">
   <div className="underwriting-calculation-card">
     <span>Monthly Payment</span>
