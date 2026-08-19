@@ -118,7 +118,7 @@ if (
       monthlyPayment * termNumber;
 
     totalInterest = totalPayments;
-  } else if (paymentType === "amortizing") {
+ } else {
     monthlyPayment =
       proposedLoanNumber *
       (
