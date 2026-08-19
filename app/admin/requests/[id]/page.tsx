@@ -140,6 +140,27 @@ if (
       totalPayments - proposedLoanNumber;
   }
 }
+
+ const monthlyNoiNumber = Number(monthlyNoi) || 0;
+
+const dscr =
+  monthlyPayment > 0
+    ? monthlyNoiNumber / monthlyPayment
+    : 0;
+
+let dscrRating = "Not Rated";
+
+if (dscr > 0) {
+  if (dscr >= 1.5) {
+    dscrRating = "Strong";
+  } else if (dscr >= 1.25) {
+    dscrRating = "Adequate";
+  } else if (dscr >= 1.0) {
+    dscrRating = "Thin";
+  } else {
+    dscrRating = "Below Coverage";
+  }
+} 
   useEffect(() => {
     async function loadRequest() {
       const {
