@@ -361,6 +361,57 @@ approval_conditions: approvalConditions || null,
   setSaveMessage("Changes saved successfully.");
   setSaving(false);
 }
+  async function handleDecisionAction(
+  decision: "approved" | "conditional" | "declined"
+) {
+  if (!request) return;
+
+  const confirmed = window.confirm(
+    decision === "declined"
+      ? "Are you sure you want to decline this capital request?"
+      : decision === "conditional"
+      ? "Confirm conditional approval for this capital request?"
+      : "Confirm approval for this capital request?"
+  );
+
+  if (!confirmed) return;
+
+  setSaving(true);
+  setSaveMessage("");
+
+  const { error } = await supabase
+    .from("capital_requests")
+    .update({
+      underwriting_decision: decision,
+      updated_at: new Date().toISOString(),
+    })
+    .eq("id", request.id);
+
+  if (error) {
+    setSaveMessage(
+      "We could not update the underwriting decision."
+    );
+    setSaving(false);
+    return;
+  }
+
+  setUnderwritingDecision(decision);
+
+  setRequest({
+    ...request,
+    underwriting_decision: decision,
+  });
+
+  setSaveMessage(
+    decision === "declined"
+      ? "Capital request declined."
+      : decision === "conditional"
+      ? "Conditional approval saved."
+      : "Capital request approved."
+  );
+
+  setSaving(false);
+}
   function formatDate(value: string) {
     return new Date(value).toLocaleDateString("en-US", {
       month: "long",
@@ -902,8 +953,8 @@ approval_conditions: approvalConditions || null,
   <button
     type="button"
     onClick={() =>
-      setUnderwritingDecision("approved")
-    }
+  handleDecisionAction("approved")
+}
   >
     Approve
   </button>
@@ -911,8 +962,8 @@ approval_conditions: approvalConditions || null,
   <button
     type="button"
     onClick={() =>
-      setUnderwritingDecision("conditional")
-    }
+  handleDecisionAction("conditional")
+}
   >
     Conditional Approval
   </button>
@@ -920,8 +971,8 @@ approval_conditions: approvalConditions || null,
   <button
     type="button"
     onClick={() =>
-      setUnderwritingDecision("declined")
-    }
+  handleDecisionAction("declined")
+}
   >
     Decline
   </button>
