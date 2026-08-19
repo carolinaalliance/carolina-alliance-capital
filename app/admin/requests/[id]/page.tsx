@@ -293,6 +293,11 @@ proposed_loan_amount:
     ? Number(proposedLoanAmount)
     : null,
 
+ monthly_noi:
+  monthlyNoi !== ""
+    ? Number(monthlyNoi)
+    : null,
+      
 interest_rate:
   interestRate !== ""
     ? Number(interestRate)
