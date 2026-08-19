@@ -778,7 +778,54 @@ approval_conditions: approvalConditions || null,
            
     </strong>
   </div>
-</div>         
+</div>   
+   <div className="underwriting-calculations">
+  <div className="underwriting-calculation-card">
+    <span>DSCR</span>
+
+    <strong>
+      {dscr > 0
+        ? `${dscr.toFixed(2)}x`
+        : "—"}
+    </strong>
+  </div>
+
+  <div className="underwriting-calculation-card">
+    <span>Coverage Rating</span>
+
+    <strong>{dscrRating}</strong>
+  </div>
+
+  <div className="underwriting-calculation-card">
+    <span>Monthly NOI</span>
+
+    <strong>
+      {monthlyNoiNumber > 0
+        ? monthlyNoiNumber.toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0,
+          })
+        : "—"}
+    </strong>
+  </div>
+
+  <div className="underwriting-calculation-card">
+    <span>NOI After Debt Service</span>
+
+    <strong>
+      {monthlyNoiNumber > 0 && monthlyPayment > 0
+        ? (
+            monthlyNoiNumber - monthlyPayment
+          ).toLocaleString("en-US", {
+            style: "currency",
+            currency: "USD",
+            maximumFractionDigits: 0,
+          })
+        : "—"}
+    </strong>
+  </div>
+</div>       
 <div className="underwriting-summary">
   <p className="section-label">
     Proposed Structure Summary
