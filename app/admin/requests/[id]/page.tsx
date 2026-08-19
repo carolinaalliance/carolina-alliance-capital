@@ -583,6 +583,19 @@ approval_conditions: approvalConditions || null,
     </div>
 
     <div className="form-field">
+  <label>Monthly Net Operating Income</label>
+
+  <input
+    type="number"
+    step="0.01"
+    value={monthlyNoi}
+    onChange={(event) =>
+      setMonthlyNoi(event.target.value)
+    }
+    placeholder="0"
+  />
+</div>
+    <div className="form-field">
       <label>Interest Rate</label>
       <input
         type="number"
