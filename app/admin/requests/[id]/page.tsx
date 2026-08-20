@@ -418,6 +418,148 @@ approval_conditions: approvalConditions || null,
 
   setSaving(false);
 }
+
+  async function handleGenerateDecisionLetter() {
+  if (!request) return;
+
+  const decision = underwritingDecision;
+
+  if (
+    decision !== "approved" &&
+    decision !== "conditional" &&
+    decision !== "declined"
+  ) {
+    setSaveMessage(
+      "Select an underwriting decision before generating a letter."
+    );
+    return;
+  }
+
+  const today = new Date().toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  const amount =
+    proposedLoanNumber > 0
+      ? proposedLoanNumber.toLocaleString("en-US", {
+          style: "currency",
+          currency: "USD",
+          maximumFractionDigits: 0,
+        })
+      : "the proposed financing amount";
+
+  let letterType = "";
+  let letterBody = "";
+
+  if (decision === "approved") {
+    letterType = "approval";
+
+    letterBody = `${today}
+
+${request.full_name}
+
+RE: Carolina Alliance Capital Approval
+
+Dear ${request.full_name},
+
+Carolina Alliance Capital has completed its preliminary review of your financing request.
+
+Based on the information currently provided, the proposed financing in the amount of ${amount} has been approved, subject to final documentation, verification, closing requirements, and any other conditions required before funding.
+
+Proposed terms currently reflect an interest rate of ${interestRate || "TBD"}% for ${termMonths || "TBD"} months with a ${paymentType ? paymentType.replaceAll("_", " ") : "TBD"} payment structure.
+
+This approval is not a commitment to fund until all required documentation, due diligence, legal requirements, and closing conditions have been satisfied.
+
+Sincerely,
+
+Carolina Alliance Capital`;
+  }
+
+  if (decision === "conditional") {
+    letterType = "conditional_approval";
+
+    letterBody = `${today}
+
+${request.full_name}
+
+RE: Carolina Alliance Capital Conditional Approval
+
+Dear ${request.full_name},
+
+Carolina Alliance Capital has completed its preliminary review of your financing request.
+
+Based on the information currently provided, the proposed financing in the amount of ${amount} has been conditionally approved.
+
+The following conditions must be satisfied before final approval or funding:
+
+${approvalConditions || "Additional underwriting and closing conditions will be provided."}
+
+Proposed terms currently reflect an interest rate of ${interestRate || "TBD"}% for ${termMonths || "TBD"} months with a ${paymentType ? paymentType.replaceAll("_", " ") : "TBD"} payment structure.
+
+This conditional approval is not a commitment to fund and remains subject to final underwriting, documentation, verification, legal requirements, and closing conditions.
+
+Sincerely,
+
+Carolina Alliance Capital`;
+  }
+
+  if (decision === "declined") {
+    letterType = "decline";
+
+    letterBody = `${today}
+
+${request.full_name}
+
+RE: Carolina Alliance Capital Financing Request
+
+Dear ${request.full_name},
+
+Thank you for allowing Carolina Alliance Capital to review your financing request.
+
+After reviewing the information currently available, we are unable to approve the request at this time.
+
+This decision is based on our current underwriting review and does not prevent you from submitting additional information or a future request for consideration.
+
+Sincerely,
+
+Carolina Alliance Capital`;
+  }
+
+  setSaving(true);
+  setSaveMessage("");
+
+  const generatedAt = new Date().toISOString();
+
+  const { error } = await supabase
+    .from("capital_requests")
+    .update({
+      decision_letter_type: letterType,
+      decision_letter_body: letterBody,
+      decision_letter_generated_at: generatedAt,
+      updated_at: generatedAt,
+    })
+    .eq("id", request.id);
+
+  if (error) {
+    setSaveMessage(
+      "We could not generate the decision letter."
+    );
+    setSaving(false);
+    return;
+  }
+
+  setRequest({
+    ...request,
+    decision_letter_type: letterType,
+    decision_letter_body: letterBody,
+    decision_letter_generated_at: generatedAt,
+  });
+
+  setSaveMessage("Decision letter generated successfully.");
+  setSaving(false);
+}
   function formatDate(value: string) {
     return new Date(value).toLocaleDateString("en-US", {
       month: "long",
@@ -982,6 +1124,14 @@ approval_conditions: approvalConditions || null,
   >
     Decline
   </button>
+
+   <button
+  type="button"
+  onClick={handleGenerateDecisionLetter}
+  disabled={saving}
+>
+  Generate Decision Letter
+</button>
 </div>         
   <div className="form-field">
     <label>Approval Conditions</label>
