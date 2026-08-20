@@ -37,6 +37,9 @@ underwriting_notes: string | null;
 underwriting_decision: string | null;
 approval_conditions: string | null;
 monthly_noi: number | null;  
+decision_letter_type: string | null;
+decision_letter_body: string | null;
+decision_letter_generated_at: string | null;  
 };
 
 export default function CapitalRequestDetailPage() {
@@ -219,6 +222,9 @@ if (dscr > 0) {
       underwriting_decision,
       approval_conditions,
       monthly_noi,
+      decision_letter_type,
+      decision_letter_body,
+      decision_letter_generated_at,
       created_at
           `
         )
