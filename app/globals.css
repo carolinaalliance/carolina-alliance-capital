@@ -2754,3 +2754,226 @@ main {
     width: 100%;
   }
 }
+/* =========================================================
+   PRIVATE BANKING — ADD CUSTOMER
+   ========================================================= */
+
+.pb-customer-form-page {
+  min-height: 100vh;
+  padding: 36px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #f5f3ed 0%,
+      #eef2f4 100%
+    );
+
+  color: #10251e;
+}
+
+.pb-customer-form-header {
+  max-width: 1100px;
+  margin: 0 auto 26px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+}
+
+.pb-customer-form-header h1 {
+  margin: 0 0 8px;
+
+  color: #0d2c23;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 42px;
+}
+
+.pb-customer-form-header p {
+  margin: 0;
+  color: #65766f;
+}
+
+.pb-customer-form-header > a {
+  min-height: 42px;
+  padding: 0 16px;
+
+  display: inline-flex;
+  align-items: center;
+
+  color: #153b2f;
+  background: #ffffff;
+
+  border: 1px solid #d5d9d5;
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.pb-customer-form {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.pb-customer-form-section {
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #ddd9cf;
+  border-radius: 14px;
+
+  box-shadow:
+    0 10px 28px rgba(21, 35, 28, 0.08);
+}
+
+.pb-customer-form-section-heading {
+  padding: 22px 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0b2d22 0%,
+      #124a38 100%
+    );
+
+  border-bottom: 2px solid #b88b42;
+}
+
+.pb-customer-form-section-heading h2 {
+  margin: 0 0 4px;
+
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.pb-customer-form-section-heading p {
+  margin: 0;
+
+  color: #cad7d1;
+  font-size: 12px;
+}
+
+.pb-customer-form-grid {
+  padding: 26px;
+
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+.pb-customer-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pb-customer-form-grid label > span {
+  color: #435b50;
+
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.pb-customer-form-grid input,
+.pb-customer-form-grid select {
+  width: 100%;
+  min-height: 46px;
+
+  padding: 0 13px;
+
+  color: #17372c;
+  background: #fafaf7;
+
+  border: 1px solid #d6dad5;
+  border-radius: 8px;
+
+  font: inherit;
+}
+
+.pb-customer-form-grid input:focus,
+.pb-customer-form-grid select:focus {
+  outline: none;
+  border-color: #b58a43;
+
+  box-shadow:
+    0 0 0 3px rgba(181, 138, 67, 0.12);
+}
+
+.pb-customer-form-wide {
+  grid-column: span 2;
+}
+
+.pb-customer-form-actions {
+  margin-top: 18px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+}
+
+.pb-customer-form-actions a,
+.pb-customer-form-actions button {
+  min-height: 44px;
+
+  padding: 0 20px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.pb-customer-form-actions a {
+  color: #53675e;
+  background: #ffffff;
+
+  border: 1px solid #d5d9d5;
+}
+
+.pb-customer-form-actions button {
+  color: #ffffff;
+  background: #0c3c2d;
+
+  border: 1px solid #0c3c2d;
+
+  cursor: pointer;
+}
+
+.pb-customer-form-actions button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+@media (max-width: 700px) {
+  .pb-customer-form-page {
+    padding: 22px 16px;
+  }
+
+  .pb-customer-form-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pb-customer-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pb-customer-form-wide {
+    grid-column: span 1;
+  }
+}
