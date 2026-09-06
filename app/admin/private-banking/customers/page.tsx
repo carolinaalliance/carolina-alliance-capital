@@ -136,9 +136,9 @@ export default function PrivateBankingCustomersPage() {
             ← Back to Banking Center
           </Link>
 
-          <button type="button">
-            + Add Customer
-          </button>
+         <Link href="/admin/private-banking/customers/new">
+  + Add Customer
+</Link> 
         </div>
       </header>
 
