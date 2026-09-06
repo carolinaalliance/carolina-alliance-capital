@@ -1530,3 +1530,182 @@ main {
   }
 }
 }
+/* =========================================================
+   PRIVATE BANKING CENTER
+   ========================================================= */
+
+.private-banking-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(
+      180deg,
+      #f5f7fa 0%,
+      #eef2f6 100%
+    );
+  padding: 40px;
+}
+
+.private-banking-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.private-banking-header h1 {
+  margin: 4px 0 8px;
+  font-size: 38px;
+  line-height: 1.1;
+  color: #132238;
+}
+
+.private-banking-header > a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid #cbd4df;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #132238;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(20, 40, 70, 0.05);
+}
+
+.private-banking-header > a:hover {
+  background: #f7f9fb;
+}
+
+.private-banking-eyebrow {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #65758b;
+}
+
+.private-banking-subtitle {
+  margin: 0;
+  color: #6c7a8e;
+  font-size: 15px;
+}
+
+.private-banking-error {
+  margin-bottom: 24px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: #fff3f3;
+  border: 1px solid #f0c4c4;
+  color: #9b2c2c;
+  font-weight: 600;
+}
+
+.private-banking-stats {
+  display: grid;
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 34px;
+}
+
+.private-banking-stat-card {
+  background: #ffffff;
+  border: 1px solid #dde4ec;
+  border-radius: 16px;
+  padding: 22px;
+  box-shadow:
+    0 8px 24px rgba(18, 34, 56, 0.06);
+}
+
+.private-banking-stat-card span {
+  display: block;
+  margin-bottom: 10px;
+  color: #6d7b8d;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.private-banking-stat-card strong {
+  display: block;
+  color: #132238;
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.private-banking-modules {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.private-banking-module-card {
+  display: block;
+  min-height: 180px;
+  padding: 26px;
+  border-radius: 18px;
+  background: #ffffff;
+  border: 1px solid #dce3eb;
+  text-decoration: none;
+  box-shadow:
+    0 10px 28px rgba(18, 34, 56, 0.06);
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.private-banking-module-card:hover {
+  transform: translateY(-3px);
+  border-color: #aebdce;
+  box-shadow:
+    0 14px 34px rgba(18, 34, 56, 0.1);
+}
+
+.private-banking-module-card h2 {
+  margin: 0 0 10px;
+  color: #132238;
+  font-size: 21px;
+}
+
+.private-banking-module-card p {
+  margin: 0;
+  color: #68778a;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+@media (max-width: 1150px) {
+  .private-banking-stats {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .private-banking-modules {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .private-banking-page {
+    padding: 22px;
+  }
+
+  .private-banking-header {
+    flex-direction: column;
+  }
+
+  .private-banking-header h1 {
+    font-size: 30px;
+  }
+
+  .private-banking-stats,
+  .private-banking-modules {
+    grid-template-columns: 1fr;
+  }
+}
