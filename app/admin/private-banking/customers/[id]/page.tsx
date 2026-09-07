@@ -346,29 +346,32 @@ export default function PrivateBankingCustomerDetailPage() {
 
     const updatedAt = new Date().toISOString();
 
-    const { error } = await supabase
-      .from("banking_customers")
-      .update({
-        customer_status: customerStatus,
-        onboarding_status: onboardingStatus,
-        risk_rating: riskRating,
-        relationship_manager:
-          relationshipManager.trim() || null,
-        internal_notes:
-          internalNotes.trim() || null,
-        updated_at: updatedAt,
-      })
-      .eq("id", customer.id);
+   const { data: updatedCustomer, error } = await supabase
+  .from("banking_customers")
+  .update({
+    customer_status: customerStatus,
+    onboarding_status: onboardingStatus,
+    risk_rating: riskRating,
+    relationship_manager:
+      relationshipManager.trim() || null,
+    internal_notes:
+      internalNotes.trim() || null,
+    updated_at: updatedAt,
+  })
+  .eq("id", customer.id)
+  .select("id")
+  .maybeSingle();
+    
+   if (error || !updatedCustomer) {
+  setErrorMessage(
+    error
+      ? `We could not save this customer: ${error.message}`
+      : "The customer record was not updated. Check database permissions."
+  );
 
-    if (error) {
-      setErrorMessage(
-        `We could not save this customer: ${error.message}`
-      );
-
-      setSaving(false);
-      return;
-    }
-
+  setSaving(false);
+  return;
+}
     setCustomer({
       ...customer,
       customer_status: customerStatus,
